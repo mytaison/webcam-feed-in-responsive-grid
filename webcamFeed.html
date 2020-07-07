@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 align="center">Webcam Feed in Responsive Grid Layout</h1>
+    <br>
+    <div><center>
+        <button type="button" id="new_feed_btn">Add new feed</button>
+        <!-- <button></button> -->
+        <!-- <button></button> -->
+    </center></div>
+    <div id="container">
+        <!-- <video autoplay="true" id="videoElement">
+        </video> -->
+    </div>
+    <script>
+        // Event binding on Add new feed
+        var addBtn = document.getElementById("new_feed_btn");
+        addBtn.addEventListener("click" , pushNewFeed , false);
+        // Feed Container
+        var feedContainer = document.getElementById("container");
+        function pushNewFeed(){
+            //count total video
+            var countVidTag = document.getElementsByTagName("video").length;
+            console.log("Total Videos:",countVidTag);
+            var vidElement = document.createElement("video");
+            vidElement.setAttribute("id", "videoElement"+countVidTag);
+            vidElement.setAttribute("controls", "");
+            vidElement.setAttribute("autoplay", "true");
+            publishFeed(vidElement);
+        }
+
+        function publishFeed(vidEle){
+            feedContainer.appendChild(vidEle);
+            if (navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (stream) {
+                    vidEle.srcObject = stream;
+                })
+                .catch(function (err0r) {
+                    console.log("Something went wrong!");
+                    console.log(err0r)
+                });
+            }
+        }
+        // document.getElementsByTagName("H1")[0].setAttribute("class", "democlass");
+    </script>
+</body>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        margin: 10px;
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: floralwhite;
+    }
+    #container{
+        margin: 10px;
+    }
+    button{
+        min-width: 40px;
+        background: crimson;
+        color: white;
+        border: 1px solid firebrick;
+        border-radius: 5px;
+        padding: 10px;
+        font-weight: bold;
+    }
+    button:hover{
+        background: red;
+        /* color: lightcoral; */
+    }
+</style>
+</html>
