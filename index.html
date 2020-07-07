@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
@@ -13,68 +14,24 @@
         <!-- <button></button> -->
         <!-- <button></button> -->
     </center></div>
-    <div id="container">
+    <div id="container" class="grid">
         <!-- <video autoplay="true" id="videoElement">
         </video> -->
     </div>
     <script>
-        // Event binding on Add new feed
-        var addBtn = document.getElementById("new_feed_btn");
-        addBtn.addEventListener("click" , pushNewFeed , false);
-        // Feed Container
-        var feedContainer = document.getElementById("container");
-        function pushNewFeed(){
-            //count total video
-            var countVidTag = document.getElementsByTagName("video").length;
-            console.log("Total Videos:",countVidTag);
-            var vidElement = document.createElement("video");
-            vidElement.setAttribute("id", "videoElement"+countVidTag);
-            vidElement.setAttribute("controls", "");
-            vidElement.setAttribute("autoplay", "true");
-            publishFeed(vidElement);
-        }
-
-        function publishFeed(vidEle){
-            feedContainer.appendChild(vidEle);
-            if (navigator.mediaDevices.getUserMedia) {
-                navigator.mediaDevices.getUserMedia({ video: true })
-                .then(function (stream) {
-                    vidEle.srcObject = stream;
-                })
-                .catch(function (err0r) {
-                    console.log("Something went wrong!");
-                    console.log(err0r)
-                });
-            }
-        }
-        // document.getElementsByTagName("H1")[0].setAttribute("class", "democlass");
+        
     </script>
 </body>
 <style>
-    * {
-        margin: 0;
-        padding: 0;
+    .grid {
+        display: grid;
+        grid-gap: 10px;
+        /* grid-template-columns: repeat(auto-fill, minmax(250px,2fr)); */
+        grid-auto-rows: 200px;  
     }
-    body{
-        margin: 10px;
-        font-family: Arial, Helvetica, sans-serif;
-        background-color: floralwhite;
-    }
-    #container{
-        margin: 10px;
-    }
-    button{
-        min-width: 40px;
-        background: crimson;
-        color: white;
-        border: 1px solid firebrick;
-        border-radius: 5px;
-        padding: 10px;
-        font-weight: bold;
-    }
-    button:hover{
-        background: red;
-        /* color: lightcoral; */
+    video{
+        width: 100%;
     }
 </style>
+<script src="./app.js"></script>
 </html>
